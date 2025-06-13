@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "main": "./dar.js",
+  "dependencies": {
+    "discord.js": "^14.19.3",
+    "fs": "^0.0.1-security"
+  }
+}
