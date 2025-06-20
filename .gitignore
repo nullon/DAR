@@ -1,6 +1,7 @@
 #トークン
-files/divide&role.token
+*.token
 
+## 以下、GitHub 自動生成
 # Logs
 logs
 *.log

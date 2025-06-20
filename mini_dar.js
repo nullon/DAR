@@ -66,10 +66,10 @@ const DAR = {
     testGuild:'1190026977315410031',
 
     roles:{
-        'online':{name:  'オンライン',   color:0x23A55A},
-        'idle'  :{name:  '退席中'    ,   color:0xF0B232},
-        'dnd'   :{name:  '取り込み中',   color:0xF23F43},
-        'offline':{name:  'オフライン',  color:0x80848E},
+        'online':{name:  'オンライン',   color:0x43a25a},
+        'idle'  :{name:  '退席中'    ,   color:0xca9654},
+        'dnd'   :{name:  '取り込み中',   color:0xd83a42},
+        'offline':{name:  'オフライン',  color:0x82838b},
     },
 
     roleToStatus:{
@@ -133,10 +133,10 @@ const DAR = {
     },
 
     roleSet:new Set([
-          'オンライン:2336090',
-          '退席中:15774258',
-          '取り込み中:15875907',
-          'オフライン:8422542',
+          'オンライン',
+          '退席中',
+          '取り込み中',
+          'オフライン',
     ]),
     
 }//end of the DAR
@@ -165,7 +165,7 @@ client.on('presenceUpdate',async (before,after)=>{
 
     const guildRoles = {};//取得したギルドのロールを収納するオブジェクト
     after.guild.roles.cache.forEach((role) => {//キャッシュからギルドのロールを取得する
-        if(DAR.roleSet.has(`${role.name}:${role.color}`)){
+        if(DAR.roleSet.has(`${role.name}`)){
             guildRoles[DAR.roleToStatus[role.name]] = role.id;
         }
     });
@@ -179,7 +179,9 @@ client.on('presenceUpdate',async (before,after)=>{
     }
 
     if(removeRoles.length){await member.roles.remove(removeRoles);}//取り外すロールがあるなら一括で取り外す
-    await member.roles.add(guildRoles[afterStatus]);//現在のロールを追加する
+    if(guildRoles[afterStatus]){//追加するロールがあるなら
+        await member.roles.add(guildRoles[afterStatus]);//現在のロールを追加する
+    }
 });
 
 //どこかしらのギルドで新しいロールが作られた時
